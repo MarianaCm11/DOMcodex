@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaturaNoticias — Noticias de la Naturaleza</title>
+  <meta name="description"
+    content="Página interactiva de noticias sobre naturaleza. Agrega, resalta y elimina noticias con manipulación del DOM en JavaScript." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__leaf" aria-hidden="true">🌿</span>
+      <h1 class="hero__title">NaturaNoticias</h1>
+      <p class="hero__subtitle">Descubre, comparte y destaca las historias del mundo natural</p>
+    </div>
+  </header>
+
+  <!-- ===== Main layout ===== -->
+  <main class="layout">
+
+    <!-- ─── Sidebar: form + controls ─── -->
+    <aside class="sidebar">
+
+      <section class="card" aria-labelledby="form-heading">
+        <h2 class="card__heading" id="form-heading">
+          <span class="card__icon" aria-hidden="true">📰</span> Nueva Noticia
+        </h2>
+
+        <form class="news-form" id="news-form" novalidate>
+          <label class="news-form__label" for="news-title">Título de la noticia</label>
+          <input class="news-form__input" id="news-title" type="text"
+            placeholder="Ej. El bosque amazónico recupera su verdor…" required autocomplete="off" />
+
+          <label class="news-form__label" for="news-highlight">Tipo de resaltado</label>
+          <select class="news-form__select" id="news-highlight">
+            <option value="">— Sin resaltado —</option>
+            <option value="news-item--important">⚠️ Importante</option>
+            <option value="news-item--urgent">🔴 Urgente</option>
+            <option value="news-item--announcement">📢 Anuncio</option>
+            <option value="news-item--recommended">⭐ Recomendado</option>
+          </select>
+
+          <button class="btn btn--primary" id="btn-add" type="submit">
+            <span aria-hidden="true">＋</span> Agregar Noticia
+          </button>
+        </form>
+      </section>
+
+      <section class="card card--info" aria-labelledby="dom-heading">
+        <h2 class="card__heading" id="dom-heading">
+          <span class="card__icon" aria-hidden="true">💡</span> Técnicas DOM
+        </h2>
+        <ul class="dom-list">
+          <li class="dom-list__item"><code>querySelector</code> &amp; <code>querySelectorAll</code></li>
+          <li class="dom-list__item"><code>textContent</code> — actualizar texto</li>
+          <li class="dom-list__item"><code>setAttribute</code> — cambiar atributos</li>
+          <li class="dom-list__item"><code>classList.add/remove/toggle</code></li>
+          <li class="dom-list__item"><code>createElement</code> / <code>&lt;template&gt;</code></li>
+          <li class="dom-list__item"><code>appendChild</code> / <code>remove()</code></li>
+          <li class="dom-list__item">Eventos: <code>submit</code>, <code>click</code></li>
+        </ul>
+      </section>
+
+    </aside>
+
+    <!-- ─── Main content: news list ─── -->
+    <section class="news-section" aria-labelledby="list-heading">
+      <div class="news-section__header">
+        <h2 class="news-section__title" id="list-heading">
+          <span aria-hidden="true">🌍</span> Noticias
+        </h2>
+        <span class="news-section__counter" id="news-counter">0 noticias</span>
+      </div>
+
+      <p class="news-section__empty" id="empty-state">
+        <span aria-hidden="true">🌱</span><br />
+        Aún no hay noticias. ¡Agrega la primera usando el formulario!
+      </p>
+
+      <ul class="news-list" id="news-list" aria-live="polite" aria-label="Lista de noticias"></ul>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p class="footer__text">NaturaNoticias &copy; 2026 — Manipulación del DOM con JavaScript</p>
+  </footer>
+
+  <!-- ===== Card template (cloned by JS) ===== -->
+  <template id="news-item-tpl">
+    <li class="news-item">
+      <div class="news-item__img-wrap">
+        <img class="news-item__img" src="" alt="" loading="lazy" />
+        <span class="news-item__tag"></span>
+      </div>
+      <div class="news-item__body">
+        <h3 class="news-item__title"></h3>
+        <p class="news-item__date"></p>
+        <div class="news-item__actions">
+          <button class="btn btn--action" data-action="highlight" id="" title="Cambiar resaltado">
+            <span aria-hidden="true">🏷️</span> Resaltar
+          </button>
+          <button class="btn btn--edit" data-action="edit" title="Editar noticia">
+            <span aria-hidden="true">✏️</span> Editar
+          </button>
+          <button class="btn btn--danger" data-action="delete" title="Eliminar noticia">
+            <span aria-hidden="true">🗑️</span> Eliminar
+          </button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
