@@ -479,6 +479,45 @@ body {
   /* shown when a highlight type is set */
 }
 
+/* Change-image button overlaid on the photo */
+.news-item__img-btn {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: .72rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(0, 0, 0, .50);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.news-item__img-wrap:hover .news-item__img-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.news-item__img-btn:hover {
+  background: var(--clr-accent);
+}
+
+.news-item__img-btn:active {
+  transform: scale(.93);
+}
+
+
 /* Body */
 .news-item__body {
   padding: var(--space-md);

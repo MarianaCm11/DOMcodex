@@ -165,6 +165,35 @@ function cycleHighlight(item) {
   }
 }
 
+// ── Change Image ─────────────────────────────────────────
+
+/**
+ * Picks a new random image (different from the current one) and
+ * updates the card's <img> via setAttribute — key DOM technique.
+ * @param {HTMLLIElement} item
+ */
+function changeImage(item) {
+  const img = item.querySelector('.news-item__img');
+  const currentSrc = img.getAttribute('src');             // getAttribute
+
+  // Pick a different random index to guarantee the image actually changes
+  let idx;
+  do {
+    idx = randomIndex(IMAGES.length);
+  } while (IMAGES[idx] === currentSrc && IMAGES.length > 1);
+
+  img.setAttribute('src', IMAGES[idx]);                   // setAttribute — key DOM technique
+  img.setAttribute('alt', IMAGE_ALTS[idx]);               // setAttribute
+
+  // Brief scale-in animation to signal the change
+  img.style.transition = 'transform 0ms';
+  img.style.transform  = 'scale(1.08)';
+  requestAnimationFrame(() => {
+    img.style.transition = 'transform 350ms ease';
+    img.style.transform  = 'scale(1)';
+  });
+}
+
 // ── Edit News Item ────────────────────────────────────────
 
 /**
@@ -318,6 +347,8 @@ function initListEvents() {
 
     if (action === 'highlight') {
       cycleHighlight(item);
+    } else if (action === 'change-image') {
+      changeImage(item);                                  // setAttribute — key DOM technique
     } else if (action === 'edit' || action === 'save') {
       editItem(item, btn);
     } else if (action === 'delete') {
